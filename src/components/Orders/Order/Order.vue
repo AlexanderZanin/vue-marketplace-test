@@ -2,13 +2,13 @@
   <div class="order">
 
     <section class="order__box">
-      <h3 class="order__title">Order info</h3>
+      <h4 class="order__title">Order info</h4>
       <div class="order__row">
         <strong class="order__highlighted">Exchange Rate:</strong>
         {{ order.exchange_rate }}
       </div>
       <div class="order__row">
-        <strong class="order__highlighted">Range:</strong>
+        <strong class="order__highlighted">Weight:</strong>
         from
         <strong class="order__highlighted order__highlighted--medium">
           {{ order.range[0] | addMeasure }}
@@ -21,7 +21,7 @@
     </section>
 
     <section class="order__box">
-      <h3 class="order__title">User info</h3>
+      <h4 class="order__title">User info</h4>
       <div class="order__row">
         <strong class="order__highlighted">Name:</strong>
         {{ user.name }}

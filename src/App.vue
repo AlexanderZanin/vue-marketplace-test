@@ -2,11 +2,30 @@
   <div id="app">
     <TheHeader />
     <div class="app-container">
-      <section class="filters">
-        <h2>Filters:</h2>
-        <RangeFilter />
+
+      <section class="filters-section">
+        <h2>Filters</h2>
+        <RangeFilter
+          class="filters-section__box"
+          :min="getMin(prices)"
+          :max="getMax(prices)"
+          measure="$">
+          <template slot="title">Filter by Exchange Rate:</template>
+        </RangeFilter>
+
+        <RangeFilter
+          class="filters-section__box"
+          :min="getMin(grams)"
+          :max="getMax(grams)"
+          measure="g">
+          <template slot="title">Filter by Weight:</template>
+        </RangeFilter>
       </section>
-      <Orders :orders="orders" />
+
+      <section class="orders-section">
+        <h2>Orders</h2>
+        <Orders :orders="orders" />
+      </section>
     </div>
   </div>
 </template>
@@ -28,6 +47,25 @@ export default {
     return {
       orders
     }
+  },
+  computed: {
+    prices() {
+      return this.getArrayOfPropertyValues(this.orders, 'exchange_rate');
+    },
+    grams() {
+      return [].concat(...this.getArrayOfPropertyValues(this.orders, 'range'));
+    }
+  },
+  methods: {
+    getArrayOfPropertyValues(arr, prop) {
+      return arr.map(obj => obj[prop]);
+    },
+    getMin(arr) {
+      return Math.min(...arr);
+    },
+    getMax(arr) {
+      return Math.max(...arr);
+    }
   }
 }
 </script>
@@ -42,6 +80,17 @@ body {
   background-color: #fafafa;
 }
 .app-container {
-  padding: 40px 5vw;
+  padding: 40px;
+  //display: grid;
+  //grid-template-columns: 20% 75%;
+  //justify-content: space-between;
+}
+.filters-section {
+  margin-bottom: 70px;
+  &__box {
+    & + & {
+      margin-top: 30px;
+    }
+  }
 }
 </style>
