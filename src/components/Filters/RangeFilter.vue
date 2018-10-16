@@ -24,7 +24,7 @@ export default {
   props: {
     min: {
       type: Number,
-      required: true
+      required: false
     },
     max: {
       type: Number,
@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       rangeSettings: {
-        value: [ this.min, this.max ],
+        value: this.min ? [ this.min, this.max ] : this.max,
         formatter: `{value} ${this.measure}`
       }
     }
@@ -58,7 +58,6 @@ export default {
 <style scoped lang="scss">
 .range-filter {
   padding: 40px 20px;
-  border-top: 1px solid #ccc;
   &__title {
     margin-top: 0;
     margin-bottom: 40px;

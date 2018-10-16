@@ -32,48 +32,72 @@ export default {
   computed: {
     ...mapGetters([
       'pricesRange',
-      'gramsRange'
+      'gramsRange',
+      'sortBy'
     ]),
     filteredOrders() {
-      // const ordersFilteredByExchangeRate = this.filterOrdersBy('exchange_rate');
+      const ordersFilteredByPricesRate = this.filterOrdersByExchangeRate(this.sortedOrders);
 
-      // return this.filterByRange(ordersFilteredByExchangeRate);
-      const ordersFilteredByPricesRange = this.filter(this.orders, 'exchange_rate', 'pricesRange');
-
-      return this.filter(ordersFilteredByPricesRange, 'range', 'gramsRange');
+      return this.filterByRange(ordersFilteredByPricesRate);
+    },
+    sortedOrders() {
+      switch (this.sortBy) {
+        case 'priceAsc':
+          return this.sortFromLowToHighBy('exchange_rate');
+        case 'priceDesc':
+          return this.sortFromHighToLowBy('exchange_rate');
+        case 'ratingAsc':
+          return this.sortFromLowToHighBy('rating');
+        case 'ratingDesc':
+          return this.sortFromHighToLowBy('rating');
+        default:
+          return this.orders;
+      }
     }
   },
   methods: {
     findUserById(id) {
       return this.users.find(order => order.id === id);
     },
-    // filterOrdersBy(prop) {
-    //   const range = this.pricesRange;
-    //
-    //   return this.orders.filter(order => {
-    //     return order[prop] >= range[0] && order[prop] <= range[range.length -1];
-    //   })
-    // },
-    // filterByRange(arr) {
-    //   const range = this.gramsRange;
-    //
-    //   return arr.filter(obj => {
-    //     return obj.range[0] >= range[0] && obj.range[obj.range.length-1] <= range[range.length -1];
-    //   })
-    // },
-    checkSmallest(prop) {
-      return prop[0] ? prop[0] : prop;
-    },
-    checkHighest(prop) {
-      const last = prop[prop.length - 1];
-      return last ? last : prop;
-    },
-    filter(arr, prop, filterBy) {
-      const range = this[filterBy];
+    filterOrdersByExchangeRate(arr) {
+      const range = this.pricesRange;
 
-      return arr.filter(obj => {
-        return this.checkSmallest(obj[prop]) >= range[0] && this.checkHighest(obj[prop]) <= range[range.length -1];
+      return arr.filter(order => {
+        return order.exchange_rate >= range[0] && order.exchange_rate <= range[range.length -1];
       })
+    },
+    filterByRange(arr) {
+      return arr.filter(obj => {
+        return obj.range[obj.range.length - 1] <= this.gramsRange;
+      })
+    },
+    sortFromLowToHighBy(prop) {
+      return this.orders.sort((a, b) => {
+        const valA = this.checkPropertyExistence(a, prop);
+        const valB = this.checkPropertyExistence(b, prop);
+
+        if (valA < valB)
+          return -1;
+        if (valA > valB)
+          return 1;
+        return 0;
+      });
+    },
+    sortFromHighToLowBy(prop) {
+      return this.orders.sort((a, b) => {
+        const valA = this.checkPropertyExistence(a, prop)
+        const valB = this.checkPropertyExistence(b, prop)
+
+        if (valA > valB)
+          return -1;
+        if (valA < valB)
+          return 1;
+        return 0;
+      });
+    },
+    checkPropertyExistence(obj, prop) {
+      // if property doesn't exist it will be finding in the users objects
+      return obj[prop] ? obj[prop] : this.findUserById(obj.id)[prop];
     }
   }
 }

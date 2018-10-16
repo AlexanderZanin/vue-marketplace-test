@@ -3,10 +3,9 @@
     <TheHeader />
     <div class="app-container">
 
-      <section class="filters-section">
-        <h2>Filters</h2>
+      <div class="filters">
         <RangeFilter
-          class="filters-section__box"
+          class="filters__box"
           :min="getMin(prices)"
           :max="getMax(prices)"
           statePropertyToSet="pricesRange"
@@ -15,14 +14,17 @@
         </RangeFilter>
 
         <RangeFilter
-          class="filters-section__box"
-          :min="getMin(grams)"
+          class="filters__box"
           :max="getMax(grams)"
           statePropertyToSet="gramsRange"
           measure="g">
           <template slot="title">Filter by Weight:</template>
         </RangeFilter>
-      </section>
+      </div>
+
+      <div class="sorting">
+        <Sorting />
+      </div>
 
       <section class="orders-section">
         <h2>Orders</h2>
@@ -35,6 +37,7 @@
 <script>
 import TheHeader from './components/TheHeader/TheHeader';
 import RangeFilter from './components/Filters/RangeFilter';
+import Sorting from './components/Sorting/Sorting';
 import Orders from './components/Orders/Orders';
 import orders from './data/orders.json';
 
@@ -42,8 +45,9 @@ export default {
   name: 'app',
   components: {
     TheHeader,
-    Orders,
-    RangeFilter
+    RangeFilter,
+    Sorting,
+    Orders
   },
   data() {
     return {
@@ -67,9 +71,6 @@ export default {
     },
     getMax(arr) {
       return Math.max(...arr);
-    },
-    test(e) {
-      console.log(e);
     }
   }
 }
@@ -90,11 +91,14 @@ body {
   //grid-template-columns: 20% 75%;
   //justify-content: space-between;
 }
-.filters-section {
+.filters {
   margin-bottom: 70px;
+  display: flex;
+  justify-content: space-between;
   &__box {
+    flex-basis: 45%;
     & + & {
-      margin-top: 30px;
+      margin-left: 30px;
     }
   }
 }
