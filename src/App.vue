@@ -9,6 +9,7 @@
           class="filters-section__box"
           :min="getMin(prices)"
           :max="getMax(prices)"
+          statePropertyToSet="pricesRange"
           measure="$">
           <template slot="title">Filter by Exchange Rate:</template>
         </RangeFilter>
@@ -17,6 +18,7 @@
           class="filters-section__box"
           :min="getMin(grams)"
           :max="getMax(grams)"
+          statePropertyToSet="gramsRange"
           measure="g">
           <template slot="title">Filter by Weight:</template>
         </RangeFilter>
@@ -65,6 +67,9 @@ export default {
     },
     getMax(arr) {
       return Math.max(...arr);
+    },
+    test(e) {
+      console.log(e);
     }
   }
 }

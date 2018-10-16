@@ -5,6 +5,7 @@
     </h3>
     <VueSlider
       v-model="rangeSettings.value"
+      @input="setRange({ property: statePropertyToSet, value: $event })"
       :min="min"
       :max="max"
       :formatter="rangeSettings.formatter" />
@@ -13,6 +14,7 @@
 
 <script>
 import VueSlider from 'vue-slider-component';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'RangeFilter',
@@ -31,17 +33,24 @@ export default {
     measure: {
       type: String,
       required: true
+    },
+    statePropertyToSet: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
       rangeSettings: {
         value: [ this.min, this.max ],
-        min: 2,
-        max: 500,
         formatter: `{value} ${this.measure}`
       }
     }
+  },
+  methods: {
+    ...mapActions([
+      'setRange'
+    ])
   }
 }
 </script>
