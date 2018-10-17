@@ -6,7 +6,7 @@
       :max="getMax(prices)"
       statePropertyToSet="pricesRange"
       measure="$">
-      <template slot="title">Filter by Exchange Rate:</template>
+      <template slot="title">By Exchange Rate:</template>
     </RangeFilter>
 
     <RangeFilter
@@ -14,13 +14,13 @@
       :max="getMax(grams)"
       statePropertyToSet="gramsRange"
       measure="g">
-      <template slot="title">Filter by Weight:</template>
+      <template slot="title">By Weight:</template>
     </RangeFilter>
   </div>
 </template>
 
 <script>
-import RangeFilter from './RangeFilter';
+import RangeFilter from './RangeFilter/RangeFilter';
 
 export default {
   name: 'Filters',
@@ -57,14 +57,15 @@ export default {
 
 <style scoped lang="scss">
 .filters {
-  margin-bottom: 70px;
   display: flex;
   justify-content: space-between;
+
   &__box {
     flex-basis: 45%;
-    & + & {
-      margin-left: 30px;
-    }
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
   }
 }
 </style>

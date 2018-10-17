@@ -57,7 +57,6 @@ export default {
 
 <style scoped lang="scss">
 .range-filter {
-  padding: 40px 20px;
   &__title {
     margin-top: 0;
     margin-bottom: 40px;

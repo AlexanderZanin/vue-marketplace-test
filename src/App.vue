@@ -3,14 +3,18 @@
     <TheHeader />
     <div class="app-container">
 
-      <Filters :orders="orders" />
+      <section class="app-section">
+        <h2 class="app-h2">Filters</h2>
+        <Filters :orders="orders" />
+      </section>
 
-      <div class="sorting">
+      <section class="app-section">
+        <h2 class="app-h2">Sort from:</h2>
         <Sorting />
-      </div>
+      </section>
 
-      <section class="orders-section">
-        <h2>Orders</h2>
+      <section class="app-section">
+        <h2 class="app-h2">Orders</h2>
         <Orders :orders="orders" />
       </section>
     </div>
@@ -49,10 +53,21 @@ body {
   margin: 0;
   background-color: #fafafa;
 }
+
 .app-container {
-  padding: 40px;
-  //display: grid;
-  //grid-template-columns: 20% 75%;
-  //justify-content: space-between;
+  padding: 40px 5vw;
+  @media (max-width: 640px) {
+    padding: 30px;
+  }
+
+}
+
+.app-section + .app-section {
+  margin-top: 70px;
+}
+
+.app-h2 {
+  margin-top: 0;
+  margin-bottom: 35px;
 }
 </style>

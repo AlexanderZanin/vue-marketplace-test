@@ -6,7 +6,7 @@ Vue.use(Vuex);
 const state = {
   pricesRange: [],
   gramsRange: [],
-  sortBy: ''
+  sortBy: 'priceAsc'
 }
 
 const mutations = {

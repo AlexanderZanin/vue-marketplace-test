@@ -43,13 +43,13 @@ export default {
     sortedOrders() {
       switch (this.sortBy) {
         case 'priceAsc':
-          return this.sortFromLowToHighBy('exchange_rate');
+          return this.sortArrayBy('exchange_rate');
         case 'priceDesc':
-          return this.sortFromHighToLowBy('exchange_rate');
+          return this.sortArrayBy('exchange_rate').reverse();
         case 'ratingAsc':
-          return this.sortFromLowToHighBy('rating');
+          return this.sortArrayBy('rating');
         case 'ratingDesc':
-          return this.sortFromHighToLowBy('rating');
+          return this.sortArrayBy('rating').reverse();
         default:
           return this.orders;
       }
@@ -71,28 +71,12 @@ export default {
         return obj.range[obj.range.length - 1] <= this.gramsRange;
       })
     },
-    sortFromLowToHighBy(prop) {
+    sortArrayBy(prop) {
       return this.orders.sort((a, b) => {
         const valA = this.checkPropertyExistence(a, prop);
         const valB = this.checkPropertyExistence(b, prop);
 
-        if (valA < valB)
-          return -1;
-        if (valA > valB)
-          return 1;
-        return 0;
-      });
-    },
-    sortFromHighToLowBy(prop) {
-      return this.orders.sort((a, b) => {
-        const valA = this.checkPropertyExistence(a, prop)
-        const valB = this.checkPropertyExistence(b, prop)
-
-        if (valA > valB)
-          return -1;
-        if (valA < valB)
-          return 1;
-        return 0;
+        return valA - valB;
       });
     },
     checkPropertyExistence(obj, prop) {
@@ -116,9 +100,5 @@ export default {
   @media (max-width: 1200px) {
     grid-template-columns: none;
   }
-
-  /*@media (max-width: 768px) {*/
-    /*grid-template-columns: none;*/
-  /*}*/
 }
 </style>
