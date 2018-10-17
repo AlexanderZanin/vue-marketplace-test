@@ -5,17 +5,17 @@
       <h4 class="order__title">Order info</h4>
       <div class="order__row">
         <strong class="order__highlighted">Exchange Rate:</strong>
-        {{ order.exchange_rate }}
+        {{ order.exchange_rate | addCurrency }}
       </div>
       <div class="order__row">
         <strong class="order__highlighted">Weight:</strong>
         from
         <strong class="order__highlighted order__highlighted--medium">
-          {{ order.range[0] | addMeasure }}
+          {{ order.range[0] | addGrams }}
         </strong>
         to
         <strong class="order__highlighted order__highlighted--medium">
-          {{ order.range[order.range.length -1] | addMeasure }}
+          {{ order.range[order.range.length -1] | addGrams }}
         </strong>
       </div>
     </section>
@@ -38,8 +38,11 @@
 export default {
   name: 'Order',
   filters: {
-    addMeasure(value) {
+    addGrams(value) {
       return `${value}g`;
+    },
+    addCurrency(value) {
+      return `${value}$`;
     }
   },
   props: {
