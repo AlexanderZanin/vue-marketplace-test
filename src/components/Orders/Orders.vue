@@ -1,10 +1,15 @@
 <template>
   <div class="orders">
+  <div v-if="filteredOrders.length" class="orders__list">
     <Order
       v-for="order in filteredOrders"
       :key="order.id"
       :order="order"
       :user="findUserById(order.id)" />
+  </div>
+  <p v-else class="orders__message">
+    There are no results...
+  </p>
   </div>
 </template>
 
@@ -43,13 +48,13 @@ export default {
     sortedOrders() {
       switch (this.sortBy) {
         case 'priceAsc':
-          return this.sortArrayBy('exchange_rate');
+          return this.sortOrdersBy('exchange_rate');
         case 'priceDesc':
-          return this.sortArrayBy('exchange_rate').reverse();
+          return this.sortOrdersBy('exchange_rate').reverse();
         case 'ratingAsc':
-          return this.sortArrayBy('rating');
+          return this.sortOrdersBy('rating');
         case 'ratingDesc':
-          return this.sortArrayBy('rating').reverse();
+          return this.sortOrdersBy('rating').reverse();
         default:
           return this.orders;
       }
@@ -71,7 +76,7 @@ export default {
         return obj.range[obj.range.length - 1] <= this.gramsRange;
       })
     },
-    sortArrayBy(prop) {
+    sortOrdersBy(prop) {
       return this.orders.sort((a, b) => {
         const valA = this.checkPropertyExistence(a, prop);
         const valB = this.checkPropertyExistence(b, prop);
@@ -89,16 +94,23 @@ export default {
 
 <style scoped lang="scss">
 .orders {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 30px;
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
 
-  @media (max-width: 1440px) {
-    grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 1440px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 1200px) {
+      grid-template-columns: none;
+    }
   }
 
-  @media (max-width: 1200px) {
-    grid-template-columns: none;
+  &__message {
+    text-align: center;
+    font-size: 24px;
   }
 }
 </style>
