@@ -4,13 +4,13 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-  pricesRange: [],
-  gramsRange: [],
+  exchangeRateRangeSliderValue: [],
+  gramsRangeSliderValue: null,
   sortBy: 'priceAsc'
 }
 
 const mutations = {
-  setRange (state, rangeData) {
+  setRangeSliderValue (state, rangeData) {
     state[rangeData.property] = rangeData.value;
   },
   setSortBy (state, value) {
@@ -19,13 +19,13 @@ const mutations = {
 }
 
 const actions = {
-  setRange: ({ commit }, rangeData) => commit('setRange', rangeData),
+  setRangeSliderValue: ({ commit }, rangeData) => commit('setRangeSliderValue', rangeData),
   setSortBy: ({ commit }, value) => commit('setSortBy', value)
 }
 
 const getters = {
-  pricesRange: state => state.pricesRange,
-  gramsRange: state => state.gramsRange,
+  exchangeRateRangeSliderValue: state => state.exchangeRateRangeSliderValue,
+  gramsRangeSliderValue: state => state.gramsRangeSliderValue,
   sortBy: state => state.sortBy
 }
 

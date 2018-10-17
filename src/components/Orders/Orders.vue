@@ -36,12 +36,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'pricesRange',
-      'gramsRange',
+      'exchangeRateRangeSliderValue',
+      'gramsRangeSliderValue',
       'sortBy'
     ]),
     filteredOrders() {
-      const ordersFilteredByExchangeRate = this.filterOrdersByExchangeRate(this.sortedOrders);
+      const ordersFilteredByExchangeRate = this.filterByExchangeRate(this.sortedOrders);
 
       return this.filterByRange(ordersFilteredByExchangeRate);
     },
@@ -64,8 +64,8 @@ export default {
     findUserById(id) {
       return this.users.find(order => order.id === id);
     },
-    filterOrdersByExchangeRate(arr) {
-      const range = this.pricesRange;
+    filterByExchangeRate(arr) {
+      const range = this.exchangeRateRangeSliderValue;
 
       return arr.filter(order => {
         return order.exchange_rate >= range[0] && order.exchange_rate <= range[range.length -1];
@@ -73,7 +73,7 @@ export default {
     },
     filterByRange(arr) {
       return arr.filter(obj => {
-        return obj.range[obj.range.length - 1] <= this.gramsRange;
+        return obj.range[obj.range.length - 1] <= this.gramsRangeSliderValue;
       })
     },
     sortOrdersBy(prop) {

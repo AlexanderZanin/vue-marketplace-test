@@ -5,7 +5,7 @@
     </h3>
     <VueSlider
       v-model="rangeSettings.value"
-      @input="setRange({ property: statePropertyToSet, value: $event })"
+      @input="setRangeSliderValue({ property: statePropertyToSet, value: $event })"
       :min="min"
       :max="max"
       :formatter="rangeSettings.formatter" />
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setRange'
+      'setRangeSliderValue'
     ])
   }
 }
