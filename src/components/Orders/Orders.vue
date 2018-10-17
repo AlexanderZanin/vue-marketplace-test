@@ -41,9 +41,9 @@ export default {
       'sortBy'
     ]),
     filteredOrders() {
-      const ordersFilteredByPricesRate = this.filterOrdersByExchangeRate(this.sortedOrders);
+      const ordersFilteredByExchangeRate = this.filterOrdersByExchangeRate(this.sortedOrders);
 
-      return this.filterByRange(ordersFilteredByPricesRate);
+      return this.filterByRange(ordersFilteredByExchangeRate);
     },
     sortedOrders() {
       switch (this.sortBy) {
