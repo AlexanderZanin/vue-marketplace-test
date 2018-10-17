@@ -77,12 +77,14 @@ export default {
       })
     },
     sortOrdersBy(prop) {
-      return [...this.orders.sort((a, b) => {
+      const ordersCopy = [...this.orders];
+
+      return ordersCopy.sort((a, b) => {
         const valA = this.checkPropertyExistence(a, prop);
         const valB = this.checkPropertyExistence(b, prop);
 
         return valA - valB;
-      })];
+      });
     },
     checkPropertyExistence(obj, prop) {
       // if property doesn't exist it will be finding in the users objects
