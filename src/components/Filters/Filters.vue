@@ -4,7 +4,7 @@
       class="filters__box"
       :min="getMin(prices)"
       :max="getMax(prices)"
-      statePropertyToSet="exchangeRateRangeSliderValue"
+      statePropertyToSet="exchangeRate"
       measure="$">
       <template slot="title">By Exchange Rate:</template>
     </RangeFilter>
@@ -12,7 +12,7 @@
     <RangeFilter
       class="filters__box"
       :max="getMax(grams)"
-      statePropertyToSet="gramsRangeSliderValue"
+      statePropertyToSet="grams"
       measure="g">
       <template slot="title">By Weight:</template>
     </RangeFilter>

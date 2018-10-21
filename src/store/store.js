@@ -4,14 +4,16 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-  exchangeRateRangeSliderValue: [],
-  gramsRangeSliderValue: null,
+  rangeFilters: {
+    exchangeRate: [],
+    grams: null
+  },
   sortBy: 'priceAsc'
 }
 
 const mutations = {
   setRangeSliderValue (state, rangeData) {
-    state[rangeData.property] = rangeData.value;
+    state.rangeFilters[rangeData.property] = rangeData.value;
   },
   setSortBy (state, value) {
     state.sortBy = value;
@@ -24,8 +26,8 @@ const actions = {
 }
 
 const getters = {
-  exchangeRateRangeSliderValue: state => state.exchangeRateRangeSliderValue,
-  gramsRangeSliderValue: state => state.gramsRangeSliderValue,
+  exchangeRateRangeSliderValue: state => state.rangeFilters.exchangeRate,
+  gramsRangeSliderValue: state => state.rangeFilters.grams,
   sortBy: state => state.sortBy
 }
 
