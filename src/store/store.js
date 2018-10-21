@@ -20,11 +20,6 @@ const mutations = {
   }
 }
 
-const actions = {
-  setRangeSliderValue: ({ commit }, rangeData) => commit('setRangeSliderValue', rangeData),
-  setSortBy: ({ commit }, value) => commit('setSortBy', value)
-}
-
 const getters = {
   exchangeRateRangeSliderValue: state => state.rangeFilters.exchangeRate,
   gramsRangeSliderValue: state => state.rangeFilters.grams,
@@ -34,6 +29,5 @@ const getters = {
 export default new Vuex.Store({
   state,
   getters,
-  actions,
   mutations
 })

@@ -14,7 +14,7 @@
 
 <script>
 import VueSlider from 'vue-slider-component';
-import { mapActions } from 'vuex';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'RangeFilter',
@@ -48,7 +48,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
+    ...mapMutations([
       'setRangeSliderValue'
     ])
   }
